@@ -1,15 +1,15 @@
+import Fuse from 'fuse.js';
 import { useAssets } from "./useAssets";
 import { Asset, Locations } from "../types/type";
 import { useLocations } from "./useLocation";
 import { useMemo } from "react";
 
-export function useTreeView(companyId: string, isEnergySensorFilter: boolean, isCriticalFilter: boolean) {
+export function useTreeView(companyId: string, isEnergySensorFilter: boolean, isCriticalFilter: boolean, searchTerm: string) {
   const { data: assets } = useAssets(companyId);
   const { data: locations } = useLocations(companyId);
 
   const treeView = useMemo(() => {
     if (!locations || !assets) return { asset: [], location: [] };
-
 
     const filteredAssets = assets.filter(asset => {
       if (isEnergySensorFilter && isCriticalFilter) return true;
@@ -42,39 +42,31 @@ export function useTreeView(companyId: string, isEnergySensorFilter: boolean, is
         }
         componentMap.get(asset.parentId || asset.locationId || 'root')!.push(asset);
       } else if (asset.locationId) {
-
         if (!assetMap.has(asset.locationId)) {
           assetMap.set(asset.locationId, []);
         }
         assetMap.get(asset.locationId)!.push(asset);
       } else if (asset.parentId) {
-
         if (!subAssetMap.has(asset.parentId)) {
           subAssetMap.set(asset.parentId, []);
         }
         subAssetMap.get(asset.parentId)!.push(asset);
       } else {
-
         unlinkedAssets.push(asset);
       }
     });
 
     const buildLocationTree = (location: Locations): Locations => {
-
       location.children = subLocationMap.get(location.id)?.map(buildLocationTree) || [];
-
       const assetsInLocation = assetMap.get(location.id) || [];
       location.children.push(...assetsInLocation.map(buildAssetTree));
-
       return location;
     };
 
     const buildAssetTree = (asset: Asset): Asset => {
       asset.children = subAssetMap.get(asset.id)?.map(buildAssetTree) || [];
-
       const componentsInAsset = componentMap.get(asset.id) || [];
       asset.children.push(...componentsInAsset);
-
       return asset;
     };
 
@@ -84,11 +76,23 @@ export function useTreeView(companyId: string, isEnergySensorFilter: boolean, is
 
     const rootAssets = filteredAssets.filter(asset => !asset.locationId && !asset.parentId && asset.sensorType);
 
-    return {
-      location: rootLocations,
-      asset: [...rootAssets],
+
+    const fuseOptions = {
+      keys: ['name'],
+      includeScore: true,
     };
-  }, [assets, locations, isEnergySensorFilter, isCriticalFilter]);
+    const fuseLocations = new Fuse(locations, fuseOptions);
+    const fuseAssets = new Fuse(rootAssets, fuseOptions);
+
+
+    const searchResultsLocations = searchTerm ? fuseLocations.search(searchTerm).map(result => result.item) : rootLocations;
+    const searchResultsAssets = searchTerm ? fuseAssets.search(searchTerm).map(result => result.item) : rootAssets;
+
+    return {
+      location: searchResultsLocations,
+      asset: searchResultsAssets,
+    };
+  }, [assets, locations, isEnergySensorFilter, isCriticalFilter, searchTerm]);
 
   return treeView;
 }

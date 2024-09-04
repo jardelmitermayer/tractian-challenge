@@ -6,7 +6,7 @@ import { Asset } from "../../types/type";
 
 import './styles.css'
 import { ComponentDetails } from "../ComponentDetails";
-import { TreeFiltersAndActions } from "../TreeFiltersAndActions";
+import { SearchFilter } from "../SearchFilter";
 interface TreeViewProps {
   companyId: string;
   isEnergySensorFilter: boolean;
@@ -14,17 +14,22 @@ interface TreeViewProps {
 }
 
 export const TreeView: FC<TreeViewProps> = ({ companyId, isEnergySensorFilter, isCriticalFilter }) => {
-  const [selectedMotor, setSelectedMotor] = useState<Asset | null>(null); // Estado para o motor selecionado
-  const data = useTreeView(companyId, isEnergySensorFilter, isCriticalFilter);
+  const [selectedMotor, setSelectedMotor] = useState<Asset | null>(null);
+  const [searchTerm, setSearchTerm] = useState<string>('');
+  const data = useTreeView(companyId, isEnergySensorFilter, isCriticalFilter, searchTerm);
 
   const handleSelectMotor = (motor: Asset) => {
     setSelectedMotor(motor);
   };
 
+  const handleSearch = (searchTerm: string) => {
+    setSearchTerm(searchTerm);
+  };
+
   return (
     <div className="container-tree-view">
       <div className="filter-and-tree">
-        <TreeFiltersAndActions />
+        <SearchFilter onSearch={handleSearch} />
         <div className="tree-view">
           {data.location && data.location.map(node => (
             <TreeLocation
