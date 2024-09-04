@@ -8,9 +8,12 @@ export const CompanyPage = () => {
   const { id: companyId } = useParams<{ id: string }>();
   return (
     <div className='company-page'>
-      <div className='flex'>
-        <h2>Ativos</h2>
-        <h4>/Local</h4>
+      <div className='company-page-filters'>
+        <span className='flex'><h2>Ativos</h2>/Local</span>
+        <div>
+          <button>Sensor de Energia</button>
+          <button>Crítico</button>
+        </div>
       </div>
       <TreeFiltersAndActions />
       {companyId && <TreeView companyId={companyId} />}
