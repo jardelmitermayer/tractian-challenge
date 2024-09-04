@@ -10,7 +10,6 @@ interface TreeViewProps {
 export const TreeView: FC<TreeViewProps> = ({ companyId }) => {
 
   const data = useTreeView(companyId)
-
   return (
     <div className="tree-view">
       {data.location && data.location.map(node => {
