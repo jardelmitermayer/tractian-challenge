@@ -1,0 +1,28 @@
+.motor-details {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.motor-image {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.motor-info {
+  font-size: 16px;
+  color: #333;
+}
+
+.motor-info p {
+  margin: 10px 0;
+}
+
+.motor-info strong {
+  font-weight: bold;
+}
