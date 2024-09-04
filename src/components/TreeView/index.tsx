@@ -8,11 +8,13 @@ import './styles.css'
 import { ComponentDetails } from "../ComponentDetails";
 interface TreeViewProps {
   companyId: string;
+  isEnergySensorFilter: boolean;
+  isCriticalFilter: boolean;
 }
 
-export const TreeView: FC<TreeViewProps> = ({ companyId }) => {
+export const TreeView: FC<TreeViewProps> = ({ companyId, isEnergySensorFilter, isCriticalFilter }) => {
   const [selectedMotor, setSelectedMotor] = useState<Asset | null>(null); // Estado para o motor selecionado
-  const data = useTreeView(companyId);
+  const data = useTreeView(companyId, isEnergySensorFilter, isCriticalFilter);
 
   const handleSelectMotor = (motor: Asset) => {
     setSelectedMotor(motor);

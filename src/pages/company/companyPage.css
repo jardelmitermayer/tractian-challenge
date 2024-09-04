@@ -9,7 +9,19 @@
   align-items: center;
   justify-content: space-between;
 }
-.flex{
+.filter-buttons-container{
   display: flex;
   align-items: center;
+  gap: 8px;
+}
+
+.filter-button{
+  display: flex;
+  align-items: center;
+  border: 1px solid #D8DFE6;
+  padding: 8px 16px;
+}
+.filter-button-active{
+  background:  #2188FF;
+  color: #FFF;
 }

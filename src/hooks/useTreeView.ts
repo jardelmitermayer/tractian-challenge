@@ -3,12 +3,20 @@ import { Asset, Locations } from "../types/type";
 import { useLocations } from "./useLocation";
 import { useMemo } from "react";
 
-export function useTreeView(companyId: string) {
+export function useTreeView(companyId: string, isEnergySensorFilter: boolean, isCriticalFilter: boolean) {
   const { data: assets } = useAssets(companyId);
   const { data: locations } = useLocations(companyId);
 
   const treeView = useMemo(() => {
     if (!locations || !assets) return { asset: [], location: [] };
+
+
+    const filteredAssets = assets.filter(asset => {
+      if (isEnergySensorFilter && isCriticalFilter) return true;
+      if (isEnergySensorFilter) return asset.status === "operating";
+      if (isCriticalFilter) return asset.status === "alert";
+      return true;
+    });
 
     const locationMap = new Map<string, Locations>();
     const subLocationMap = new Map<string, Locations[]>();
@@ -27,46 +35,41 @@ export function useTreeView(companyId: string) {
       }
     });
 
-    assets.forEach(asset => {
+    filteredAssets.forEach(asset => {
       if (asset.sensorType) {
-
         if (!componentMap.has(asset.parentId || asset.locationId || 'root')) {
           componentMap.set(asset.parentId || asset.locationId || 'root', []);
         }
         componentMap.get(asset.parentId || asset.locationId || 'root')!.push(asset);
       } else if (asset.locationId) {
-        // Se o item é um asset dentro de uma localização
+
         if (!assetMap.has(asset.locationId)) {
           assetMap.set(asset.locationId, []);
         }
         assetMap.get(asset.locationId)!.push(asset);
       } else if (asset.parentId) {
-        // Se o item é um asset dentro de outro asset
+
         if (!subAssetMap.has(asset.parentId)) {
           subAssetMap.set(asset.parentId, []);
         }
         subAssetMap.get(asset.parentId)!.push(asset);
       } else {
-        // Se o item não está vinculado a nada
+
         unlinkedAssets.push(asset);
       }
     });
 
-    // Função para construir a árvore de localizações
     const buildLocationTree = (location: Locations): Locations => {
-      // Adicionar sub-localizações
+
       location.children = subLocationMap.get(location.id)?.map(buildLocationTree) || [];
 
-      // Adicionar assets dentro da localização
       const assetsInLocation = assetMap.get(location.id) || [];
       location.children.push(...assetsInLocation.map(buildAssetTree));
 
       return location;
     };
 
-
     const buildAssetTree = (asset: Asset): Asset => {
-
       asset.children = subAssetMap.get(asset.id)?.map(buildAssetTree) || [];
 
       const componentsInAsset = componentMap.get(asset.id) || [];
@@ -75,19 +78,17 @@ export function useTreeView(companyId: string) {
       return asset;
     };
 
-    // Constrói a árvore de localizações a partir das localizações raiz
     const rootLocations = Array.from(locationMap.values())
       .filter(location => !location.parentId)
       .map(buildLocationTree);
 
-    const rootAssets = assets.filter(asset => !asset.locationId && !asset.parentId && asset.sensorType);
+    const rootAssets = filteredAssets.filter(asset => !asset.locationId && !asset.parentId && asset.sensorType);
 
     return {
       location: rootLocations,
       asset: [...rootAssets],
     };
-  }, [assets, locations]);
+  }, [assets, locations, isEnergySensorFilter, isCriticalFilter]);
 
-  console.log(treeView)
   return treeView;
 }
