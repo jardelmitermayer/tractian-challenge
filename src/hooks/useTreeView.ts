@@ -1,23 +1,27 @@
+import { useAssets } from "./useAssets";
 import { Asset, Locations, TreeView } from "../types/type";
+import { useLocations } from "./useLocation";
 
-export async function fetchData(companyId: string): Promise<TreeView> {
+export function useTreeView(companyId: string) {
 
   const treeView: TreeView = { asset: [], location: [] };
 
-  const assetResponse = await fetch(`https://fake-api.tractian.com/companies/${companyId}/assets`);
-  const assets: Asset[] = await assetResponse.json();
+  const { data: assets } = useAssets(companyId)
 
-  assets.filter(asset => asset.sensorType && !asset.parentId && !asset.locationId).forEach((asset) => {
-    treeView?.asset?.push(asset)
-  });
+  if (assets) {
+    assets.filter(asset => asset.sensorType && !asset.parentId && !asset.locationId).forEach((asset) => {
+      treeView?.asset?.push(asset)
+    });
+  }
 
-  const locationsResponse = await fetch(`https://fake-api.tractian.com/companies/${companyId}/locations`);
-  const locations: Locations[] = await locationsResponse.json();
+  const { data: locations } = useLocations(companyId)
 
-  locations.filter(loc => !loc.parentId).forEach((location) => {
-    treeView?.location?.push(recursiveLocation(location, locations, assets.map(asset => recursiveAsset(asset, assets))))
-  });
-  console.log(treeView)
+  if (locations && assets) {
+    locations.filter(loc => !loc.parentId).forEach((location) => {
+      treeView?.location?.push(recursiveLocation(location, locations, assets.map(asset => recursiveAsset(asset, assets))))
+    });
+  }
+
   return treeView
 }
 
@@ -30,6 +34,7 @@ function recursiveLocation(location: Locations, childrenLocations: Locations[], 
   })
   const childrenAssets = assets.filter(asset => asset.locationId === location.id)
   location.children = [...children, ...childrenAssets]
+
   return location
 }
 
@@ -41,5 +46,6 @@ function recursiveAsset(asset: Asset, childrenAssets: Asset[]) {
     }
   })
   asset.children = [...children]
+
   return asset
 }

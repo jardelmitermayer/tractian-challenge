@@ -4,9 +4,7 @@ export interface Company {
   id: string;
   name: string;
 }
-export interface Component {
-  name: string
-}
+
 export interface Asset {
   id: string;
   name: string;
@@ -17,6 +15,8 @@ export interface Asset {
   gatewayId?: string;
   children?: Asset[] | Component[];
 }
+
+export type Component = Omit<Asset, "children">;
 
 export interface Locations {
   id: string;
