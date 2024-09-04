@@ -1,8 +1,7 @@
-import { TreeNode, TreeAction } from "../types/type";
+import { TreeAction, TreeView } from "../types/type";
 import { toggleNode } from "./utils/toggleNode";
 
-
-export const treeReducer = (state: TreeNode[], action: TreeAction): TreeNode[] => {
+export const treeReducer = (state: TreeView, action: TreeAction): TreeView => {
   switch (action.type) {
     case "INIT_DATA":
       return action.data;

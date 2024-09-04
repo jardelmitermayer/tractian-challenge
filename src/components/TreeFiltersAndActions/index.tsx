@@ -2,8 +2,8 @@ import { FC } from "react"
 
 export const TreeFiltersAndActions: FC = () => {
   return (
-    <>
-      <input type='text' placeholder='Buscar...' />
-    </>
+    <div className="tree-filters-and-actions">
+      <input type='text' placeholder='Buscar ativo ou local' />
+    </div>
   )
 }

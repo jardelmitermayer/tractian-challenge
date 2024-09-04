@@ -16,7 +16,7 @@ export const TreeLocation: FC<TreeNodeProps> = ({ node }) => {
     <div className="tree-node">
       {node?.children &&
         <button className="toggle-icon" onClick={toggle}>
-          {isExpanded ? "⮝" : "⮟"}
+          {isExpanded ? "↑" : "↓"}
         </button>
       }
       <span>{node.name}</span>

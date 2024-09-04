@@ -1,6 +1,6 @@
 import { useState, useEffect, FC } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useCompanies } from '../../useCompanies';
+import { useCompanies } from '../../hooks/useCompanies';
 import './Navbar.css'
 import { Logo } from '../Logo';
 
