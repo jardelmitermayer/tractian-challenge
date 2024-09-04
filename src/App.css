@@ -1,51 +1,27 @@
 body {
-  margin: 12px;
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  overflow-y: hidden;
 }
 
-.toggle-icon{
-  cursor: pointer;
-  background-color: transparent;
-  margin-right: 10px;
+a {
+  color: inherit;
+  text-decoration: none;
 }
 
-.toggle-icon:focus{
-  outline: 2px solid blue;
+* {
+  box-sizing: border-box;
 }
 
 input {
-  padding: 10px;
-  font-size: 24px;
-}
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  padding: 12px;
+  font-size: 14px;
+  line-height: 20px;
+  width: 100%;
 }
 
 .icon{
   margin-right: 4px;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
 }

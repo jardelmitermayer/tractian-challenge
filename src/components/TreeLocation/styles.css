@@ -1,12 +1,26 @@
 .container{
   display: flex;
 }
+
 .tree-node {
   margin: 8px 0;
-  padding-left: 20px;
+  padding-left: 24px;
 }
+
 .name{
   font-size: 14px;
   color: #17192D;
   margin-left: 4px;
+}
+
+.toggle-icon{
+  cursor: pointer;
+  margin-right: 10px;  
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.toggle-icon:focus{
+  outline: none;  
 }

@@ -1,3 +1,7 @@
+.company-page{
+  padding: 16px;
+}
+
 .company-page-filters{
   display: flex;
   align-items: center;
