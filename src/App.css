@@ -21,7 +21,15 @@ input {
   line-height: 20px;
   width: 100%;
 }
+button{  
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
 
 .icon{
   margin-right: 4px;
+}
+.icon-right{
+  margin-left: 4px;
 }

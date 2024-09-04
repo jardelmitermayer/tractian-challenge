@@ -1,8 +1,8 @@
 import { useParams } from 'react-router-dom';
 import { TreeFiltersAndActions } from '../../components/TreeFiltersAndActions';
 import { TreeView } from '../../components/TreeView';
-import { ExclamationIcon } from '../../components/Icons/ExclamationIcon';
-import { ThunderBoltIcon } from '../../components/Icons/ThunderBoltIcon';
+import { ExclamationIcon } from '../../components/icons/ExclamationIcon';
+import { ThunderBoltIcon } from '../../components/icons/ThunderBoltIcon';
 
 import './companyPage.css'
 

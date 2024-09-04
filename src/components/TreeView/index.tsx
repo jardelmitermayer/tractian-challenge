@@ -5,6 +5,7 @@ import { useTreeView } from "../../hooks/useTreeView";
 import { Asset } from "../../types/type";
 
 import './styles.css'
+import { ComponentDetails } from "../ComponentDetails";
 interface TreeViewProps {
   companyId: string;
 }
@@ -24,10 +25,19 @@ export const TreeView: FC<TreeViewProps> = ({ companyId }) => {
           <TreeLocation
             key={node.id}
             node={node}
-            onSelectMotor={handleSelectMotor} // Propagando para os filhos
+            onSelectMotor={handleSelectMotor}
           />
         ))}
+        {data.asset && data.asset.map(node => {
+          if (node.sensorType) {
+            return (
+              <ComponentDetails key={node.id} component={node} onSelectMotor={handleSelectMotor} />
+            )
+          }
+          return null
+        })}
       </div>
+
       <div className="details-panel">
         {selectedMotor ? (
           <MotorDetails motor={selectedMotor} />

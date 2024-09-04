@@ -14,6 +14,7 @@ export interface Asset {
   sensorType?: string;
   gatewayId?: string;
   children?: Asset[] | Component[];
+  status?: string;
 }
 
 export type Component = Omit<Asset, "children">;

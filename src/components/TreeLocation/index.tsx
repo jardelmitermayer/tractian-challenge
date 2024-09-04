@@ -1,12 +1,14 @@
 import { FC, useState, memo, useCallback } from "react";
 import { Asset, Locations } from "../../types/type";
-import { AssetIcon } from "../Icons/AssetIcon";
-import { ComponentIcon } from "../Icons/ComponentIcon";
-import { LocationIcon } from "../Icons/LocationIcon";
+import { AssetIcon } from "../icons/AssetIcon";
+import { ComponentIcon } from "../icons/ComponentIcon";
+import { LocationIcon } from "../icons/LocationIcon";
 
 import './styles.css';
-import { ArrowDownIcon } from "../Icons/ArrowDownIcon";
-import { ArrowUpIcon } from "../Icons/ArrowUpIcon";
+import { ArrowDownIcon } from "../icons/ArrowDownIcon";
+import { ArrowUpIcon } from "../icons/ArrowUpIcon";
+import { CriticalCircle } from "../icons/CriticalCircle";
+import { GreenLighting } from "../icons/GreenLighting";
 
 type TreeNodeProps = {
   node: Locations | Asset;
@@ -36,6 +38,17 @@ export const TreeLocation: FC<TreeNodeProps> = memo(({ node, onSelectMotor }) =>
     }
   }, [node]);
 
+  const renderComponentIcon = useCallback(() => {
+    if ('status' in node && node.status) {
+      if (node.status === "operating") {
+        return <GreenLighting />;
+      } else if (node.status === "alert") {
+        return <CriticalCircle />;
+      }
+    }
+    return null;
+  }, [node]);
+
   return (
     <div className="tree-node">
       <div className="container" onClick={handleSelect}>
@@ -46,6 +59,7 @@ export const TreeLocation: FC<TreeNodeProps> = memo(({ node, onSelectMotor }) =>
         )}
         {renderIcon()}
         <span>{node.name}</span>
+        {renderComponentIcon()}
       </div>
       {isExpanded && node?.children && node.children.length > 0 && (
         <div className="children">
@@ -53,7 +67,7 @@ export const TreeLocation: FC<TreeNodeProps> = memo(({ node, onSelectMotor }) =>
             <TreeLocation
               key={child.id}
               node={child}
-              onSelectMotor={onSelectMotor} // Passando para os filhos
+              onSelectMotor={onSelectMotor}
             />
           ))}
         </div>

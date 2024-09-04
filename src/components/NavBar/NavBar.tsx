@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useCompanies } from '../../hooks/useCompanies';
 import './Navbar.css'
 import { Logo } from '../Logo';
-import { GoldIcon } from '../Icons/GoldIcon';
+import { GoldIcon } from '../icons/GoldIcon';
 
 export const NavBar: FC = () => {
   const { data: companies, isLoading, error } = useCompanies();
