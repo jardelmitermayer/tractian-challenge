@@ -36,7 +36,7 @@ export const TreeLocation: FC<TreeNodeProps> = ({ node }) => {
           </button>
         }
         {renderIcon()}
-        <span className="name">{node.name}</span>
+        <span>{node.name}</span>
       </div>
       {isExpanded && node?.children && (node?.children.map(child => <TreeLocation node={child} />))}
 

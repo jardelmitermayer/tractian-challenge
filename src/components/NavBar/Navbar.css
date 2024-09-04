@@ -1,6 +1,6 @@
 .navbar {
   background-color: #17192D;
-  padding: 10px;
+  padding: 12px;
   display: flex;
   justify-content: space-between;
 }
@@ -8,7 +8,7 @@
 .navbar-list {
   list-style: none;
   display: flex;
-  gap: 15px;
+  gap: 12px;
 }
 
 .navbar-link:hover {
@@ -16,14 +16,15 @@
 }
 
 .navbar-link {
-  background-color: #f0f0f0;
-  color: #000;
+  background-color: #023B78;
+  color: #FFF;
   padding: 10px;
   border: none;
   cursor: pointer;
+  display: flex;
+  align-items: center;
 }
 
 .navbar-link.active {
-  background-color: #333;
-  color: #fff;
+  background-color: #2188FF;
 }

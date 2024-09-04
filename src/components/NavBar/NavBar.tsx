@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useCompanies } from '../../hooks/useCompanies';
 import './Navbar.css'
 import { Logo } from '../Logo';
+import { GoldIcon } from '../Icons/GoldIcon';
 
 export const NavBar: FC = () => {
   const { data: companies, isLoading, error } = useCompanies();
@@ -35,6 +36,7 @@ export const NavBar: FC = () => {
                 onClick={() => handleCompanyClick(company.id)}
                 className={`navbar-link ${selectedCompanyId === company.id ? 'active' : ''}`}
               >
+                <GoldIcon />
                 {company.name}
               </button>
             </li>

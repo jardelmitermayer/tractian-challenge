@@ -11,7 +11,7 @@ export const ComponentDetails: FC<ComponentDetailsProps> = ({ component }) => {
   return (
     <div className="component-details">
       <ComponentIcon />
-      <span className="name">{component.name}</span>
+      <span>{component.name}</span>
     </div>
   );
 };
