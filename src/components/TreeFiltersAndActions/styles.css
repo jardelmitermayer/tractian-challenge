@@ -1,3 +1,22 @@
-.tree-filters-and-actions{
-  padding: 12px;  
+.tree-filters-and-actions {
+  box-sizing: border-box;
+}
+
+.input-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.search-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.input-wrapper input[type="text"] {
+  padding: 8px 16px;
+  box-sizing: border-box;
+  border: 1px solid #D8DFE6;
+  border-radius: 4px;
 }

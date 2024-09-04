@@ -7,10 +7,13 @@
   padding: 16px;
   list-style: none;
   width: 40vw;
-  border: 1px solid #D8DFE6;
 }
 .details-panel{
   width: 60vw;
   border: 1px solid #D8DFE6;
   padding: 16px;
+}
+
+.filter-and-tree{  
+  border: 1px solid #D8DFE6;
 }

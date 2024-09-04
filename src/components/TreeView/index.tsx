@@ -6,6 +6,7 @@ import { Asset } from "../../types/type";
 
 import './styles.css'
 import { ComponentDetails } from "../ComponentDetails";
+import { TreeFiltersAndActions } from "../TreeFiltersAndActions";
 interface TreeViewProps {
   companyId: string;
   isEnergySensorFilter: boolean;
@@ -22,24 +23,26 @@ export const TreeView: FC<TreeViewProps> = ({ companyId, isEnergySensorFilter, i
 
   return (
     <div className="container-tree-view">
-      <div className="tree-view">
-        {data.location && data.location.map(node => (
-          <TreeLocation
-            key={node.id}
-            node={node}
-            onSelectMotor={handleSelectMotor}
-          />
-        ))}
-        {data.asset && data.asset.map(node => {
-          if (node.sensorType) {
-            return (
-              <ComponentDetails key={node.id} component={node} onSelectMotor={handleSelectMotor} />
-            )
-          }
-          return null
-        })}
+      <div className="filter-and-tree">
+        <TreeFiltersAndActions />
+        <div className="tree-view">
+          {data.location && data.location.map(node => (
+            <TreeLocation
+              key={node.id}
+              node={node}
+              onSelectMotor={handleSelectMotor}
+            />
+          ))}
+          {data.asset && data.asset.map(node => {
+            if (node.sensorType) {
+              return (
+                <ComponentDetails key={node.id} component={node} onSelectMotor={handleSelectMotor} />
+              )
+            }
+            return null
+          })}
+        </div>
       </div>
-
       <div className="details-panel">
         {selectedMotor ? (
           <MotorDetails motor={selectedMotor} />

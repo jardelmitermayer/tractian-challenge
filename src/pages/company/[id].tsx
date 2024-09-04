@@ -1,5 +1,4 @@
 import { useParams } from 'react-router-dom';
-import { TreeFiltersAndActions } from '../../components/TreeFiltersAndActions';
 import { TreeView } from '../../components/TreeView';
 import { ExclamationIcon } from '../../components/icons/ExclamationIcon';
 import { ThunderBoltIcon } from '../../components/icons/ThunderBoltIcon';
@@ -39,7 +38,6 @@ export const CompanyPage = () => {
           </button>
         </div>
       </div>
-      <TreeFiltersAndActions />
       {companyId && (
         <TreeView
           companyId={companyId}
