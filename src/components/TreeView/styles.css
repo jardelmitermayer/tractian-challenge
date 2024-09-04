@@ -1,17 +1,16 @@
+.container-tree-view{
+  display: flex;
+  flex: 1;
+}
 .tree-view {
   margin: 0;
   padding: 16px;
   list-style: none;
   width: 40vw;
   border: 1px solid #D8DFE6;
-  height: 100%;
-}
-.container-tree-view{
-  display: flex;
 }
 .details-panel{
   width: 60vw;
   border: 1px solid #D8DFE6;
   padding: 16px;
-  height: 100%;
 }

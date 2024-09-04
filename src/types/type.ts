@@ -1,5 +1,3 @@
-import { Dispatch } from "react";
-
 export interface Company {
   id: string;
   name: string;
@@ -31,13 +29,6 @@ export interface TreeView {
   asset?: Asset[]
 }
 
-export type TreeNode = Locations | Asset
-
-export type TreeAction =
-  | { type: "INIT_DATA"; data: TreeView }
-  | { type: "TOGGLE_NODE"; id: string; isExpanded: boolean }
-
-export interface TreeStateContextProps {
-  state: TreeView;
-  dispatch: Dispatch<TreeAction>;
+export interface CompaniesContextType {
+  companies: Company[] | undefined;
 }

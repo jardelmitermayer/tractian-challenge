@@ -6,21 +6,22 @@ import { ThunderBoltIcon } from '../../components/icons/ThunderBoltIcon';
 
 import './companyPage.css'
 import { useState } from 'react';
+import { useCompaniesContext } from '../../context/useCompaniesContext';
 
 export const CompanyPage = () => {
   const { id: companyId } = useParams<{ id: string }>();
-
+  const { companies } = useCompaniesContext();
   const [isEnergySensorFilter, setIsEnergySensorFilter] = useState<boolean>(false);
   const [isCriticalFilter, setIsCriticalFilter] = useState<boolean>(false);
 
-
+  const companyName = companies?.find(company => company.id === companyId)?.name;
   const toggleEnergySensorFilter = () => setIsEnergySensorFilter(prev => !prev);
   const toggleCriticalFilter = () => setIsCriticalFilter(prev => !prev);
 
   return (
     <div className='company-page'>
       <div className='company-page-filters'>
-        <span className='flex'><h2>Ativos</h2>/Local</span>
+        <span className='active-local'><h2>Ativos</h2>/ {companyName}</span>
         <div className='filter-buttons-container'>
           <button
             className={`filter-button ${isEnergySensorFilter && 'filter-button-active'} `}

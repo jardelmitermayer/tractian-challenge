@@ -1,7 +1,9 @@
 .company-page{
   padding: 16px;  
   background: #FFF;
-  height: 85vh;
+  height: 86vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .company-page-filters{
@@ -24,4 +26,14 @@
 .filter-button-active{
   background:  #2188FF;
   color: #FFF;
+}
+
+.active-local{
+  display: flex;
+  align-items: center;
+  h2{
+    font-size: 1.25rem;
+    margin-right: 8px;
+  }
+  font-size: 0.88rem;
 }

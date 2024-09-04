@@ -3,16 +3,16 @@ import { createRoot } from 'react-dom/client'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { RouterProvider } from 'react-router-dom'
 import { router } from './router.tsx'
-import { TreeProvider } from './context/TreeProvider.tsx'
+import { CompaniesProvider } from './context/CompaniesProvider.tsx'
 
 const queryClient = new QueryClient()
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <TreeProvider>
+      <CompaniesProvider>
         <RouterProvider router={router} />
-      </TreeProvider>
+      </CompaniesProvider>
     </QueryClientProvider>
   </StrictMode>,
 )
