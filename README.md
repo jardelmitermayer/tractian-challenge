@@ -3,6 +3,8 @@
 [Assista ao vídeo](src/assets/tractian-challenge-video.mp4)
 
 
+https://github.com/user-attachments/assets/b75205ba-9bf9-429b-936e-97cb013ff77f
+
 ## What points would I improve if I had more time?
 
 ### User Interface 
