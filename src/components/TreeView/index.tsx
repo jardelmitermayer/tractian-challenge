@@ -16,12 +16,12 @@ interface TreeViewProps {
 }
 
 export const TreeView: FC<TreeViewProps> = ({ companyId, isEnergySensorFilter, isCriticalFilter }) => {
-  const [selectedMotor, setSelectedMotor] = useState<Asset | null>(null);
+  const [selectedComponent, setSelectedComponent] = useState<Asset | null>(null);
   const [searchTerm, setSearchTerm] = useState<string>('');
   const data = useTreeView(companyId, isEnergySensorFilter, isCriticalFilter, searchTerm);
 
   const handleSelectMotor = (motor: Asset) => {
-    setSelectedMotor(motor);
+    setSelectedComponent(motor);
   };
 
   const handleSearch = (searchTerm: string) => {
@@ -51,10 +51,12 @@ export const TreeView: FC<TreeViewProps> = ({ companyId, isEnergySensorFilter, i
         </div>
       </div>
       <div className="details-panel">
-        {selectedMotor ? (
-          <ComponentDetails component={selectedMotor} />
+        {selectedComponent ? (
+          <ComponentDetails component={selectedComponent} />
         ) : (
-          <div>Selecione um motor para ver os detalhes</div>
+          <div className="without-component">
+            Selecione um componente para visualizar seus detalhes
+          </div>
         )}
       </div>
     </div>

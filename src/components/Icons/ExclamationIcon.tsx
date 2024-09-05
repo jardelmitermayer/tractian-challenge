@@ -1,4 +1,4 @@
-export const ExclamationIcon = ({ isActive }: { isActive: boolean }) => {
+export const ExclamationIcon = ({ isActive }: { isActive?: boolean }) => {
   const fillColor = isActive ? "#FFF" : "#2188FF";
   return (
     <div className="icon">

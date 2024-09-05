@@ -16,3 +16,10 @@
 .filter-and-tree{  
   border: 1px solid #D8DFE6;
 }
+.without-component{
+  display: flex;
+  align-items:center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
