@@ -29,9 +29,9 @@ export const TreeNode: FC<TreeNodeProps> = memo(({ node, onSelectMotor }) => {
 
   const renderIcon = useCallback(() => {
     if ('sensorType' in node && node.sensorType) {
-      return <ComponentIcon />;
+      return <ComponentIcon isTreeView />;
     } else if ('locationId' in node && node.locationId) {
-      return <AssetIcon />;
+      return <AssetIcon isTreeView />;
     } else if ('locationId' in node && !node.locationId && node.parentId) {
       return <AssetIcon />;
     } else {
@@ -51,7 +51,7 @@ export const TreeNode: FC<TreeNodeProps> = memo(({ node, onSelectMotor }) => {
   }, [node]);
 
   return (
-    <div className="tree-node">
+    <div className={`tree-node ${!node.parentId ? 'root-node' : ''}`}>
       <button className="container" onClick={handleClick}>
         {node?.children && node.children.length > 0 && (
           <span className="toggle-icon">

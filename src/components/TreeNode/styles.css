@@ -6,8 +6,13 @@
   margin: 8px 0;
   padding-left: 24px;
 }
-.tree-node:first-of-type  {
-  padding-left: 0px;
+
+.tree-node.root-node {
+  padding-left: 0;
+}
+
+.tree-node .children .tree-node {
+  padding-left: 24px;
 }
 
 .name{

@@ -30,6 +30,9 @@ button{
 .icon{
   margin-right: 4px;
 }
+.isTreeView{
+  padding-left: 24px;
+}
 .icon-right{
   margin-left: 4px;
 }
