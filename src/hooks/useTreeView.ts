@@ -21,29 +21,18 @@ export function useTreeView(companyId: string, isEnergySensorFilter: boolean, is
     locations.forEach(location => {
       locationMap.set(location.id, location);
       if (location.parentId) {
-        if (!subLocationMap.has(location.parentId)) {
-          subLocationMap.set(location.parentId, []);
-        }
-        subLocationMap.get(location.parentId)!.push(location);
+        subLocationMap.set(location.parentId, [...(subLocationMap.get(location.parentId) || []), location]);
       }
     });
 
     assets.forEach(asset => {
+      const parentKey = asset.parentId || asset.locationId || 'root';
       if (asset.sensorType) {
-        if (!componentMap.has(asset.parentId || asset.locationId || 'root')) {
-          componentMap.set(asset.parentId || asset.locationId || 'root', []);
-        }
-        componentMap.get(asset.parentId || asset.locationId || 'root')!.push(asset);
+        componentMap.set(parentKey, [...(componentMap.get(parentKey) || []), asset]);
       } else if (asset.locationId) {
-        if (!assetMap.has(asset.locationId)) {
-          assetMap.set(asset.locationId, []);
-        }
-        assetMap.get(asset.locationId)!.push(asset);
+        assetMap.set(asset.locationId, [...(assetMap.get(asset.locationId) || []), asset]);
       } else if (asset.parentId) {
-        if (!subAssetMap.has(asset.parentId)) {
-          subAssetMap.set(asset.parentId, []);
-        }
-        subAssetMap.get(asset.parentId)!.push(asset);
+        subAssetMap.set(asset.parentId, [...(subAssetMap.get(asset.parentId) || []), asset]);
       } else {
         unlinkedAssets.push(asset);
       }
@@ -56,43 +45,30 @@ export function useTreeView(companyId: string, isEnergySensorFilter: boolean, is
     };
 
     const buildLocationTree = (location: Locations): Locations | null => {
-      const filteredChildren = (subLocationMap.get(location.id) || [])
-        .map(buildLocationTree)
-        .filter(child => child !== null) as Locations[];
+      const filteredChildren = (subLocationMap.get(location.id) || []).map(buildLocationTree).filter(Boolean) as Locations[];
+      const assetsInLocation = (assetMap.get(location.id) || []).map(buildAssetTree).filter(Boolean) as Asset[];
 
-      const assetsInLocation = (assetMap.get(location.id) || [])
-        .map(buildAssetTree)
-        .filter(asset => asset !== null) as Asset[];
-
-      const hasChildren = filteredChildren.length > 0 || assetsInLocation.length > 0;
-
-      if (!isEnergySensorFilter && !isCriticalFilter) {
+      if ((!isEnergySensorFilter && !isCriticalFilter) || (isEnergySensorFilter && isCriticalFilter)) {
         location.children = [...filteredChildren, ...assetsInLocation];
         return location;
       }
 
-      if (!hasChildren) return null;
+      if (filteredChildren.length === 0 && assetsInLocation.length === 0) return null;
 
       location.children = [...filteredChildren, ...assetsInLocation];
       return location;
     };
 
     const buildAssetTree = (asset: Asset): Asset | null => {
-      const filteredChildren = (subAssetMap.get(asset.id) || [])
-        .map(buildAssetTree)
-        .filter(child => child !== null) as Asset[];
+      const filteredChildren = (subAssetMap.get(asset.id) || []).map(buildAssetTree).filter(Boolean) as Asset[];
+      const componentsInAsset = (componentMap.get(asset.id) || []).filter(checkAssetFilter);
 
-      const componentsInAsset = (componentMap.get(asset.id) || [])
-        .filter(checkAssetFilter);
-
-      const hasChildren = filteredChildren.length > 0 || componentsInAsset.length > 0;
-
-      if (!isEnergySensorFilter && !isCriticalFilter) {
+      if ((!isEnergySensorFilter && !isCriticalFilter) || (isEnergySensorFilter && isCriticalFilter)) {
         asset.children = [...filteredChildren, ...componentsInAsset];
         return asset;
       }
 
-      if (!checkAssetFilter(asset) && !hasChildren) return null;
+      if (!checkAssetFilter(asset) && filteredChildren.length === 0 && componentsInAsset.length === 0) return null;
 
       asset.children = [...filteredChildren, ...componentsInAsset];
       return asset;
@@ -101,12 +77,12 @@ export function useTreeView(companyId: string, isEnergySensorFilter: boolean, is
     const rootLocations = Array.from(locationMap.values())
       .filter(location => !location.parentId)
       .map(buildLocationTree)
-      .filter(location => location !== null) as Locations[];
+      .filter(Boolean) as Locations[];
 
     const rootAssets = assets
       .filter(asset => !asset.locationId && !asset.parentId && asset.sensorType)
       .map(buildAssetTree)
-      .filter(asset => asset !== null) as Asset[];
+      .filter(Boolean) as Asset[];
 
     const fuseOptions = {
       keys: ['name'],
