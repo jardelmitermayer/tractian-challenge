@@ -86,7 +86,7 @@ export function useTreeView(companyId: string, isEnergySensorFilter: boolean, is
 
     const fuseOptions = {
       keys: ['name', 'children.name'],
-      includeScore: true,
+      threshold: 0.5
     };
     const fuseLocations = new Fuse(rootLocations, fuseOptions);
     const fuseAssets = new Fuse(rootAssets, fuseOptions);
