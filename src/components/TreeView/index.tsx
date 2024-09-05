@@ -26,12 +26,15 @@ export const TreeView: FC<TreeViewProps> = ({ companyId, isEnergySensorFilter, i
 
   const handleSearch = (searchTerm: string) => {
     setSearchTerm(searchTerm);
+  }
+  const handleSearchClear = () => {
+    setSearchTerm('');
   };
 
   return (
     <div className="container-tree-view">
       <div className="filter-and-tree">
-        <SearchFilter onSearch={handleSearch} />
+        <SearchFilter searchTerm={searchTerm} onSearch={handleSearch} onClear={handleSearchClear} />
         <div className="tree-view">
           {data.location && data.location.map(node => (
             <TreeNode
