@@ -11,6 +11,7 @@
 .details-panel{
   width: 60vw;
   border: 1px solid #D8DFE6;
+  margin-left: 8px;
 }
 
 .filter-and-tree{  

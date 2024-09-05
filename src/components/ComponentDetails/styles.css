@@ -1,7 +1,3 @@
-.component-details {
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
 .component-details h2{
   font-size: 1.125rem;
   color: #24292F;
@@ -13,29 +9,54 @@
   border-bottom: 1px solid #D8DFE6;  
   padding: 14px 16px;
 }
-
-.component-image-placeholder {
-  width: 25vw;
-  height: 26vh;
-  background-color: #eef1f5;
+.component-image{
+  max-width: 24vw;
+  width: 100%;
+  height: 27vh;
   border: 1px dashed #dfe3e8;
   display: flex;
   align-items: center;
+  justify-content: center;  
+}
+
+.component-image-placeholder {
+  max-width: 24vw;
+  width: 100%;
+  height: 27vh;
+  background-color: #F2F8FF;
+  border: 2px dashed #55A6FF;
+  display: flex;
+  align-items: center;
   justify-content: center;
-  margin: 20px 0;
-  color: #aab2bd;
+  color: #2188FF;
 }
 .photo-type-owner{
   display: flex;
 }
 
-.component-image {
-  width: 100%;
-  max-width: 300px;
-  height: auto;
-  margin-bottom: 20px;
-  border-radius: 8px;
-  object-fit: cover;
+.type-owner{
+  margin: 0 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.responsaveis {
+  display: flex;
+  align-items: center;
+}
+
+.avatar {
+  width: 24px;
+  height: 24px;
+  background-color: #2188FF;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 14px;
+  margin-right: 8px;
 }
 
 .component-info {
@@ -50,4 +71,21 @@
 
 .component-info strong {
   font-weight: bold;
+}
+
+.divider{
+  border: 1px solid  #E3EAEF;
+  margin: 24px 0;
+}
+
+.sensor-receiver{
+  display: flex;
+  align-items:center;
+  justify-content: space-between;
+  width: 50%;
+}
+
+.icon-sensor-id{
+  display: flex;
+  align-items:center;
 }

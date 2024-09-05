@@ -1,5 +1,6 @@
 .company-page{
-  padding: 16px;  
+  margin: 8px;
+  padding: 16px;
   background: #FFF;
   min-height: 86vh;
   display: flex;
