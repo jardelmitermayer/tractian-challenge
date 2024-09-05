@@ -85,10 +85,10 @@ export function useTreeView(companyId: string, isEnergySensorFilter: boolean, is
       .filter(Boolean) as Asset[];
 
     const fuseOptions = {
-      keys: ['name'],
+      keys: ['name', 'children.name'],
       includeScore: true,
     };
-    const fuseLocations = new Fuse(locations, fuseOptions);
+    const fuseLocations = new Fuse(rootLocations, fuseOptions);
     const fuseAssets = new Fuse(rootAssets, fuseOptions);
 
     const searchResultsLocations = searchTerm ? fuseLocations.search(searchTerm).map(result => result.item) : rootLocations;
