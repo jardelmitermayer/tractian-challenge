@@ -1,5 +1,53 @@
-.component-details{
+.component-details {
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.component-details h2{
+  font-size: 1.125rem;
+  color: #24292F;
+  margin-right: 4px;
+}
+.title-status{
+  display:flex;
+  align-items: center;  
+  border-bottom: 1px solid #D8DFE6;  
+  padding: 14px 16px;
+}
+
+.component-image-placeholder {
+  width: 25vw;
+  height: 26vh;
+  background-color: #eef1f5;
+  border: 1px dashed #dfe3e8;
   display: flex;
   align-items: center;
-  cursor: pointer;
+  justify-content: center;
+  margin: 20px 0;
+  color: #aab2bd;
+}
+.photo-type-owner{
+  display: flex;
+}
+
+.component-image {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.component-info {
+  font-size: 16px;
+  color: #333;
+  padding: 24px;
+}
+
+.component-info p {
+  margin: 10px 0;
+}
+
+.component-info strong {
+  font-weight: bold;
 }

@@ -1,12 +1,14 @@
 import { FC, useState } from "react";
+
+
+import { ComponentItem } from "../ComponentItem";
+import { SearchFilter } from "../SearchFilter";
 import { TreeLocation } from "../TreeLocation";
-import { MotorDetails } from "../MotorDetails";
+import { ComponentDetails } from "../ComponentDetails";
 import { useTreeView } from "../../hooks/useTreeView";
 import { Asset } from "../../types/type";
 
 import './styles.css'
-import { ComponentDetails } from "../ComponentDetails";
-import { SearchFilter } from "../SearchFilter";
 interface TreeViewProps {
   companyId: string;
   isEnergySensorFilter: boolean;
@@ -41,7 +43,7 @@ export const TreeView: FC<TreeViewProps> = ({ companyId, isEnergySensorFilter, i
           {data.asset && data.asset.map(node => {
             if (node.sensorType) {
               return (
-                <ComponentDetails key={node.id} component={node} onSelectMotor={handleSelectMotor} />
+                <ComponentItem key={node.id} component={node} onSelectComponent={handleSelectMotor} />
               )
             }
             return null
@@ -50,7 +52,7 @@ export const TreeView: FC<TreeViewProps> = ({ companyId, isEnergySensorFilter, i
       </div>
       <div className="details-panel">
         {selectedMotor ? (
-          <MotorDetails motor={selectedMotor} />
+          <ComponentDetails component={selectedMotor} />
         ) : (
           <div>Selecione um motor para ver os detalhes</div>
         )}
