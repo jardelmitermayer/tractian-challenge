@@ -28,10 +28,12 @@ export const TreeLocation: FC<TreeNodeProps> = memo(({ node, onSelectMotor }) =>
   }, [node, onSelectMotor]);
 
   const renderIcon = useCallback(() => {
-    if ('locationId' in node && node.locationId) {
-      return <AssetIcon />;
-    } else if ('sensorType' in node && node.sensorType) {
+    if ('sensorType' in node && node.sensorType) {
       return <ComponentIcon />;
+    } else if ('locationId' in node && node.locationId) {
+      return <AssetIcon />;
+    } else if ('locationId' in node && !node.locationId && node.parentId) {
+      return <AssetIcon />;
     } else {
       return <LocationIcon />;
     }

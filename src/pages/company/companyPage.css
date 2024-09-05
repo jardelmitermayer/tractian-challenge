@@ -1,7 +1,7 @@
 .company-page{
   padding: 16px;  
   background: #FFF;
-  height: 86vh;
+  min-height: 86vh;
   display: flex;
   flex-direction: column;
 }
