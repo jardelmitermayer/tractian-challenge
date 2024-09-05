@@ -3,7 +3,7 @@ import { FC, useState } from "react";
 
 import { ComponentItem } from "../ComponentItem";
 import { SearchFilter } from "../SearchFilter";
-import { TreeLocation } from "../TreeLocation";
+import { TreeNode } from "../TreeNode";
 import { ComponentDetails } from "../ComponentDetails";
 import { useTreeView } from "../../hooks/useTreeView";
 import { Asset } from "../../types/type";
@@ -34,7 +34,7 @@ export const TreeView: FC<TreeViewProps> = ({ companyId, isEnergySensorFilter, i
         <SearchFilter onSearch={handleSearch} />
         <div className="tree-view">
           {data.location && data.location.map(node => (
-            <TreeLocation
+            <TreeNode
               key={node.id}
               node={node}
               onSelectMotor={handleSelectMotor}

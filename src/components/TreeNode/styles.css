@@ -6,6 +6,9 @@
   margin: 8px 0;
   padding-left: 24px;
 }
+.tree-node:first-of-type  {
+  padding-left: 0px;
+}
 
 .name{
   font-size: 14px;

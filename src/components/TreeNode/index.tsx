@@ -15,7 +15,7 @@ type TreeNodeProps = {
   onSelectMotor: (motor: Asset) => void;
 };
 
-export const TreeLocation: FC<TreeNodeProps> = memo(({ node, onSelectMotor }) => {
+export const TreeNode: FC<TreeNodeProps> = memo(({ node, onSelectMotor }) => {
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
   const handleClick = useCallback(() => {
@@ -65,7 +65,7 @@ export const TreeLocation: FC<TreeNodeProps> = memo(({ node, onSelectMotor }) =>
       {isExpanded && node?.children && node.children.length > 0 && (
         <div className="children">
           {node.children.map(child => (
-            <TreeLocation
+            <TreeNode
               key={child.id}
               node={child}
               onSelectMotor={onSelectMotor}
